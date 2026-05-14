@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codou Gueye — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --ivory: #FAF7F2;
+    --navy: #1A2744;
+    --navy-light: #243460;
+    --gold: #C9A84C;
+    --gold-light: #E8D08A;
+    --sage: #7A9E8E;
+    --text: #2C2C2C;
+    --text-light: #6B6B6B;
+    --border: rgba(26,39,68,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ivory);
+    color: var(--text);
+    overflow-x: hidden;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    background: var(--navy);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .header-bg-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 60px,
+        rgba(201,168,76,0.04) 60px,
+        rgba(201,168,76,0.04) 61px
+      );
+  }
+
+  .header-left {
+    padding: 80px 60px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s ease both;
+  }
+
+  .header-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1.2s ease 0.3s both;
+  }
+
+  .header-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 60%);
+  }
+
+  .decorative-circle {
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.25);
+    position: absolute;
+    right: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .decorative-circle::before {
+    content: '';
+    width: 290px;
+    height: 290px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.15);
+    position: absolute;
+  }
+
+  .monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 140px;
+    font-weight: 300;
+    color: rgba(201,168,76,0.18);
+    letter-spacing: -4px;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 82px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .header-tagline {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    max-width: 360px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  .header-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    padding: 8px 20px;
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    backdrop-filter: blur(4px);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 80px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-right: auto;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  nav a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  nav a:hover {
+    color: var(--navy);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 40px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 48px;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  /* ── INTRO ── */
+  #intro {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .intro-text p {
+    color: var(--text-light);
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  .intro-text p strong {
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  .intro-highlight {
+    background: var(--navy);
+    color: #fff;
+    padding: 40px;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-highlight::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 200px;
+    position: absolute;
+    top: -40px;
+    right: -20px;
+    color: rgba(201,168,76,0.1);
+    line-height: 1;
+  }
+
+  .intro-highlight p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+    position: relative;
+    z-index: 1;
+  }
+
+  .intro-highlight .quote-attr {
+    margin-top: 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── FORMATION ── */
+  #formation { background: var(--cream); max-width: 100%; padding-left: 0; padding-right: 0; }
+  #formation > .inner { max-width: 1200px; margin: 0 auto; padding: 0 80px; }
+
+  .formation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .formation-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 40px;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .formation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(26,39,68,0.1);
+  }
+
+  .formation-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--gold), var(--sage));
+  }
+
+  .formation-year {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .formation-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .formation-sub {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 24px;
+  }
+
+  .formation-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    padding: 5px 14px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 1px;
+    font-size: 11px;
+    color: var(--navy);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── COMPÉTENCES ── */
+  .skills-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-block {
+    background: white;
+    padding: 36px 32px;
+    transition: background 0.25s ease;
+  }
+
+  .skill-block:hover { background: var(--cream); }
+
+  .skill-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  .skill-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .skill-desc {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ── DOCUMENTS ── */
+  #documents { background: var(--navy); max-width: 100%; padding-left: 0; padding-right: 0; }
+  #documents > .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 80px;
+  }
+  #documents h2 { color: white; }
+  #documents .section-label { color: var(--gold-light); }
+  #documents .section-label::after { background: var(--gold-light); }
+
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .doc-card {
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 36px 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    display: block;
+    color: white;
+    transition: border-color 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .doc-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .doc-card:hover {
+    border-color: rgba(201,168,76,0.6);
+  }
+
+  .doc-card:hover::before { opacity: 1; }
+
+  .doc-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .doc-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .doc-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .doc-link-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .doc-link-label::after {
+    content: '→';
+    transition: transform 0.2s;
+  }
+
+  .doc-card:hover .doc-link-label::after { transform: translateX(4px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+    padding: 60px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--navy);
+  }
+
+  .footer-name span { color: var(--gold); }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--text-light);
+    letter-spacing: 0.5px;
+  }
+
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy);
+    color: white;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+
+  .footer-cta:hover { background: var(--navy-light); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    header { grid-template-columns: 1fr; min-height: auto; }
+    .header-right { display: none; }
+    .header-left { padding: 60px 32px; }
+    nav { padding: 0 24px; }
+    nav a { padding: 0 10px; font-size: 10px; }
+    section { padding: 70px 24px; }
+    #formation > .inner, #documents > .inner { padding: 70px 24px; }
+    footer { padding: 40px 24px; flex-direction: column; gap: 24px; text-align: center; }
+    .intro-grid, .formation-grid, .docs-grid, .skills-wrapper { grid-template-columns: 1fr; }
+    .skills-wrapper { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-bg-lines"></div>
+  <div class="header-left">
+    <div class="eyebrow">Portfolio professionnel</div>
+    <h1>Codou<br><em>Gueye</em></h1>
+    <p class="header-tagline">
+      Étudiante en L2 Économie & Gestion, en recherche d'alternance en tant qu'assistante comptable. Rigueur, curiosité et ambition au service des chiffres.
+    </p>
+    <div class="header-badges">
+      <div class="badge">Comptabilité</div>
+      <div class="badge">Analyse financière</div>
+      <div class="badge">Gestion</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="decorative-circle">
+      <div class="monogram">CG</div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Codou <span>G.</span></div>
+  <a href="#intro">Profil</a>
+  <a href="#formation">Formation</a>
+  <a href="#competences">Compétences</a>
+  <a href="#documents">Documents</a>
+</nav>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="section-label">À propos</div>
+  <h2>Un profil engagé,<br><em>en quête d'expérience</em></h2>
+  <div class="intro-grid">
+    <div class="intro-text reveal">
+      <p>Bonjour, je suis <strong>Codou Gueye</strong>, étudiante en <strong>Licence 2 Économie et Gestion</strong>. Je recherche activement une alternance en tant qu'<strong>assistante comptable</strong>.</p>
+      <p>Titulaire d'un baccalauréat STMG avec une base solide en comptabilité, j'ai acquis des fondamentaux théoriques que je souhaite aujourd'hui mettre à l'épreuve dans un cadre professionnel concret.</p>
+      <p>Ce portfolio a pour objectif de présenter mon parcours, mes compétences et ma démarche professionnelle dans le cadre de ma recherche d'alternance.</p>
+    </div>
+    <div class="intro-highlight reveal">
+      <p>"Consolider mes connaissances théoriques par une expérience professionnelle concrète, et apporter une contribution réelle à une équipe comptable."</p>
+      <div class="quote-attr">— Ma démarche professionnelle</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation" style="padding:0">
+  <div class="inner" style="padding-top:100px; padding-bottom:100px;">
+    <div class="section-label">Parcours académique</div>
+    <h2>Ma <em>formation</em></h2>
+    <div class="formation-grid">
+      <div class="formation-card reveal">
+        <div class="formation-year">En cours — 2024/2025</div>
+        <div class="formation-title">Licence 2 — Économie & Gestion</div>
+        <div class="formation-sub">Université · Niveau Bac+2</div>
+        <div class="formation-tags">
+          <span class="tag">Économie</span>
+          <span class="tag">Gestion d'entreprise</span>
+          <span class="tag">Finance</span>
+          <span class="tag">Statistiques</span>
+        </div>
+      </div>
+      <div class="formation-card reveal">
+        <div class="formation-year">Obtenu — Baccalauréat</div>
+        <div class="formation-title">Baccalauréat STMG (STEG)</div>
+        <div class="formation-sub">Sciences & Technologies du Management et de la Gestion</div>
+        <div class="formation-tags">
+          <span class="tag">Comptabilité de gestion</span>
+          <span class="tag">Comptabilité analytique</span>
+          <span class="tag">Analyse financière</span>
+          <span class="tag">Gestion</span>
+          <span class="tag">Droit des entreprises</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+  <div class="section-label">Savoir-faire</div>
+  <h2>Mes <em>compétences</em></h2>
+  <div class="skills-wrapper">
+    <div class="skill-block reveal">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Comptabilité générale</div>
+      <div class="skill-desc">Enregistrement des opérations courantes, tenue des journaux comptables et compréhension des grands livres.</div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-icon">📈</div>
+      <div class="skill-name">Analyse financière</div>
+      <div class="skill-desc">Lecture et interprétation des bilans, comptes de résultat et calcul des grands équilibres financiers.</div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-icon">🧮</div>
+      <div class="skill-name">Comptabilité analytique</div>
+      <div class="skill-desc">Calcul et analyse des coûts, méthode des coûts complets et contribution à la gestion budgétaire.</div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-icon">⚖️</div>
+      <div class="skill-name">Droit des entreprises</div>
+      <div class="skill-desc">Notions fondamentales du droit commercial et des obligations légales des entreprises.</div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-icon">💼</div>
+      <div class="skill-name">Gestion d'entreprise</div>
+      <div class="skill-desc">Compréhension des mécanismes organisationnels et des outils de pilotage de la performance.</div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-icon">🎯</div>
+      <div class="skill-name">Rigueur & Organisation</div>
+      <div class="skill-desc">Souci du détail, respect des délais et capacité à gérer plusieurs tâches avec méthode.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTS -->
+<section id="documents" style="padding:0">
+  <div class="inner">
+    <div class="section-label">Ressources</div>
+    <h2 style="color:white">Mes <em style="color:var(--gold-light)">documents</em></h2>
+    <div class="docs-grid">
+      <a class="doc-card reveal" href="https://drive.google.com/file/d/18qRKchK_ThgfnoRjb36M3ydHYVxtwxDr/view?usp=sharing" target="_blank" rel="noopener">
+        <span class="doc-icon">📄</span>
+        <div class="doc-title">Curriculum Vitae</div>
+        <div class="doc-desc">Mon CV détaillé présentant mon parcours académique, mes expériences et mes compétences.</div>
+        <div class="doc-link-label">Voir le document</div>
+      </a>
+      <a class="doc-card reveal" href="https://drive.google.com/file/d/1V54cqMAiGfJgCwRO8jgp7fZSHW0nWBTr/view?usp=sharing" target="_blank" rel="noopener">
+        <span class="doc-icon">👤</span>
+        <div class="doc-title">Profil</div>
+        <div class="doc-desc">Un aperçu de mon profil professionnel et de ma personnalité pour mieux me connaître.</div>
+        <div class="doc-link-label">Voir le document</div>
+      </a>
+      <a class="doc-card reveal" href="https://thin-decade-913.notion.site/GUEYE-Codou-tudiante-en-recherche-d-alternance-2f92b761c4b6807fab46e02f61c43d88" target="_blank" rel="noopener">
+        <span class="doc-icon">🔗</span>
+        <div class="doc-title">Profil Notion</div>
+        <div class="doc-desc">GUEYE Codou · Étudiante en recherche d'alternance — portfolio complet sur Notion.</div>
+        <div class="doc-link-label">Voir sur Notion</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">Codou <span>Gueye</span></div>
+    <div class="footer-note" style="margin-top:6px">Étudiante L2 · Recherche alternance assistante comptable</div>
+  </div>
+  <a class="footer-cta" href="https://thin-decade-913.notion.site/GUEYE-Codou-tudiante-en-recherche-d-alternance-2f92b761c4b6807fab46e02f61c43d88" target="_blank">
+    Voir mon profil complet →
+  </a>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80 * (entry.target.dataset.delay || 0));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach((el, i) => {
+    el.dataset.delay = i % 3;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
